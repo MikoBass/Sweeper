@@ -1,24 +1,24 @@
-const rows = 5
-const columns = 5
+const rows = 15
+const columns = 15
+document.getElementById("myGrid").style.width = 32 * columns + "px"
 let board = Array(rows).fill(0).map(()=> Array(columns).fill(0))
-let value = 0
-console.log(value)
-for(i=0;i < rows;i++)
-{
-    board[i] = []
-    board[i].appendChild(board)//dodaj appendchild tego na dole i potem to na dole do tego na górze
-    console.log(value)
-    for(j=0;j<columns;j++)
+myGrid = document.getElementById("myGrid")
+if(myGrid) {
+    for(let i=0;i < rows;i++)
     {
-        console.log(value)
-        board[i][j] = document.createElement("div")
-        board[i][j].setAttribute('id',i+"-"+j)
-        board[i][j].setAttribute('class','squere')
-        // board[i][j].setAttribute('value',value + "")
-        board[i][j].innerHTML = value
-        value++
-    }
-    document.write("<br>")
+        board[i] = []
+            for(let j=0;j<columns;j++)
+            {
+                let value = Math.floor(Math.random() * 2)
+                console.log(value)
+                board[i][j] = document.createElement("div")
+                board[i][j].setAttribute('id',i+"-"+j)
+                board[i][j].setAttribute('class','square')
+                board[i][j].innerHTML = value
+                myGrid.appendChild(board[i][j])
+            }
+            myGrid.innerHTML += "<br>"
+        }
 }
 
 
