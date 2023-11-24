@@ -6,6 +6,15 @@
         <script src="sweeper.js" defer></script>
     </head>
     <body>
+        <h1>MineSweeper</h1>
+        <Label for="height">Height of the board</Label>
+        <input class="size" type="number" id="height" min="1">
+        <br>
+        <Label for="width">Width of the board</Label>
+        <input class="size" type="number" id="width" min="1">
+        <br><br>
+        <button id="start" onclick="sizer()">Start</button>
+        <br><br><hr>
         <div class="grid" id="myGrid"></div>
     </body>
 </html>
