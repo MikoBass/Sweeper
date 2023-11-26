@@ -20,6 +20,12 @@ body
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #bebebe;
+    
+}
+.square:hover
+{
+    background: #7e7e7e;
 }
 .grid
 {
