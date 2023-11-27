@@ -24,7 +24,7 @@ function builder(rows, columns, exist)
                 board[i][j] = document.createElement("div")
                 board[i][j].setAttribute('id',i+"-"+j)
                 board[i][j].setAttribute('class','square')
-                board[i][j].setAttribute('onclick','boardGenerator()')
+                board[i][j].setAttribute('onclick', "boardGenerator(${i}, ${j})")   //fix this maube with .id
                 myGrid.appendChild(board[i][j])
             }
             myGrid.innerHTML += "<br>"
@@ -38,9 +38,9 @@ function sizer()
     let exist = document.getElementById("0-0")
     builder(rows, columns, exist)
 }
-function boardGenerator()
+function boardGenerator(row, column)
 {
-    let rows = document.getElementById("height").value;
+    let rows = document.getElementById("height").value;             //fix it so the values get taken once
     let columns = document.getElementById("width").value
     for(let i=0;i < rows;i++)
     {
@@ -48,9 +48,12 @@ function boardGenerator()
         {
             let value = Math.floor(Math.random() * 2)
             console.log(value)
-            document.getElementById(i+"-"+j).innerHTML = value
+            document.getElementById(i+"-"+j).setAttribute('value',value)
+            
+            console.log(clickedCell)
         }
     }
+    document.getElementById(row+"-"+column).innerHTML = value
 }
 
 
