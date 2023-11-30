@@ -24,12 +24,17 @@ function builder(rows, columns, exist)
                 board[i][j] = document.createElement("div")
                 board[i][j].setAttribute('id',i+"-"+j)
                 board[i][j].setAttribute('class','square')
-                board[i][j].setAttribute('onclick', "boardGenerator(${i}, ${j})")   //fix this maube with .id
+                board[i][j].addEventListener("click", identifier)//fix this maube with .id
+                board[i][j].setAttribute('onclick', "boardGenerator()")
                 myGrid.appendChild(board[i][j])
             }
             myGrid.innerHTML += "<br>"
         }
     }
+}
+const identifier = e => {
+    console.log(e.target.id)
+    console.log("as")
 }
 function sizer()
 {
@@ -38,7 +43,7 @@ function sizer()
     let exist = document.getElementById("0-0")
     builder(rows, columns, exist)
 }
-function boardGenerator(row, column)
+function boardGenerator()
 {
     let rows = document.getElementById("height").value;             //fix it so the values get taken once
     let columns = document.getElementById("width").value
@@ -49,12 +54,18 @@ function boardGenerator(row, column)
             let value = Math.floor(Math.random() * 2)
             console.log(value)
             document.getElementById(i+"-"+j).setAttribute('value',value)
+            document.getElementById(i+"-"+j).innerHTML = value
             
-            console.log(clickedCell)
         }
     }
-    document.getElementById(row+"-"+column).innerHTML = value
+    identifier() // check target
 }
 
 
 //board[i][j].setAttribute
+
+/*const funkcja = e => {
+                    console.log(e.target.id)
+                }
+                document.getElementById("28734").addEventListener("click", funkcja)*/
+// to do tego id wybierania z clickniętego
