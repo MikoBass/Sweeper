@@ -21,6 +21,7 @@ body
     justify-content: center;
     align-items: center;
     background: #bebebe;
+    user-select: none;
     
 }
 .square:hover

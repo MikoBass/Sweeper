@@ -24,7 +24,7 @@ function builder(rows, columns, exist)
                 board[i][j] = document.createElement("div")
                 board[i][j].setAttribute('id',i+"-"+j)
                 board[i][j].setAttribute('class','square')
-                board[i][j].setAttribute('onclick', "boardGenerator(); identifier(this)")
+                board[i][j].setAttribute('onclick', "boardGenerator(); identifier(this); revealer(this)")
                 myGrid.appendChild(board[i][j])
             }
             myGrid.innerHTML += "<br>"
@@ -45,27 +45,60 @@ function sizer()
 }
 function boardGenerator()
 {
+    
     let rows = 5//document.getElementById("height").value;             //fix it so the values get taken once
     let columns = 5//document.getElementById("width").value
+    let bombAmount = 0
+    let bombAmountGoal = ((rows * columns)*16)/100
+    console.log(bombAmountGoal)
     for(let i=0;i < rows;i++)
     {
         for(let j=0;j<columns;j++)
         {
-            let value = Math.floor(Math.random() * 2)
-            console.log(value)
-            document.getElementById(i+"-"+j).setAttribute('value',value)
-            document.getElementById(i+"-"+j).innerHTML = value
+            document.getElementById(i+"-"+j).setAttribute("value", 0)
+            //let value = Math.floor(Math.random() * 2)
+            //console.log(value)
+            //document.getElementById(i+"-"+j).setAttribute('value',value)
+            //document.getElementById(elementID).innerHTML = value
             
         }
     }
+    while(bombAmount != bombAmountGoal)
+    {
+        console.log(bombAmount, bombAmountGoal);
+        let height = Math.floor(Math.random() * 4)
+        let width = Math.floor(Math.random() * 4)
+        console.log(document.getElementById(height+"-"+width).value) // fix this
+        isBomb = parseInt(document.getElementById(height+"-"+width).value)
+        if(isBomb == 0)
+        {
+            document.getElementById(height+"-"+width).value = 1
+            bombAmount++
+        }
+    }
+    [...document.getElementsByClassName("square")].map(e=>e.setAttribute('onclick', "identifier(this); revealer(this)"))
     //identifier() // check target
 }
+function revealer(currentElement)
+{
+    elementID = currentElement.id
+    element = document.getElementById(elementID)
+    console.log(element.value)
+    element.innerHTML = elementID
+}
+/*
+TO-DO
+    --only one square gets revealed--
+    generate bombs on only 16% of board
+    always start on a 0
+    bomb detection protocol(make the numbers show how many bombs around)
+    make right click place "flags"
+    death and win screen
+
+*/
+
+
+
 
 
 //board[i][j].setAttribute
-
-/*const funkcja = e => {
-                    console.log(e.target.id)
-                }
-                document.getElementById("28734").addEventListener("click", funkcja)*/
-// to do tego id wybierania z clickniętego
