@@ -1,5 +1,6 @@
 //const rows = 15
 //const columns = 15
+let board = []
 function builder(rows, columns, exist)
 {
     
@@ -12,7 +13,7 @@ function builder(rows, columns, exist)
     myGrid.setAttribute("class", "grid")
     document.body.appendChild(myGrid)
     document.getElementById("myGrid").style.width = 32 * columns + "px"
-    let board = Array(rows).fill(0).map(()=> Array(columns).fill(0))
+    board = Array(rows).fill(0).map(()=> Array(columns).fill(0))
     myGrid = document.getElementById("myGrid")
     if(myGrid) 
     {
@@ -85,9 +86,30 @@ function boardGenerator(clicked)
 }
 function revealer(currentElement)
 {
-    elementID = currentElement.id
-    element = document.getElementById(elementID)
+    let elementID = currentElement.id
+    let idi = parseInt(elementID.charAt(0))
+    let idj = parseInt(elementID.charAt(2))
+    let element = document.getElementById(elementID)
     element.innerHTML = element.getAttribute('value')
+    for(i = idi - 1;i < idi+2; i++)
+    {
+        let bombs = 0
+        for(j = idj-1; j < idj+2; j++)
+        {
+            let checkedElement = document.getElementById(i+"-"+j)
+            console.log("ass")
+            if(checkedElement.getAttribute('value') == 0)
+            {
+                checkedElement.innerHTML = checkedElement.getAttribute('value')
+            }
+            if(checkedElement.getAttribute('value') == 1)
+            {
+                bombs += 1
+                //checkedElement.setAttribute('value', "around")
+                //checkedElement.innerHTML = checkedElement.getAttribute('value') redo this checkedElement is wrong here am tired see ya baiiiii
+            }
+        }
+    }
 }
 /*
 TO-DO
