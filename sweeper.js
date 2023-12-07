@@ -39,25 +39,24 @@ const identifier = e => {
 }
 function sizer()
 {
-    let rows = 5//document.getElementById("height").value;
-    let columns = 5//document.getElementById("width").value
+    let rows = 11//document.getElementById("height").value;
+    let columns = 11//document.getElementById("width").value
     let exist = document.getElementById("0-0")
     builder(rows, columns, exist)
 }
 function boardGenerator(clicked)
 {
     
-    let rows = 5//document.getElementById("height").value;             //fix it so the values get taken once
-    let columns = 5//document.getElementById("width").value
+    let rows = 11//document.getElementById("height").value;             //fix it so the values get taken once
+    let columns = 11//document.getElementById("width").value
     let bombAmount = 0
     let bombAmountGoal = ((rows * columns)*16)/100
     let temp = 0
-    console.log(bombAmountGoal)
     for(let i=0;i < rows;i++)
     {
         for(let j=0;j<columns;j++)
         {
-            document.getElementById(i+"-"+j).setAttribute("value", temp)
+            document.getElementById(i+"-"+j).setAttribute("value", "n")
             //let value = Math.floor(Math.random() * 2)
             //console.log(value)
             //document.getElementById(i+"-"+j).setAttribute('value',value)
@@ -66,18 +65,16 @@ function boardGenerator(clicked)
         }
     }
     let a = 0
-    while(bombAmount != bombAmountGoal)
+    while(bombAmount < bombAmountGoal)
     {
-        console.log(a)
         a++
-        console.log(bombAmount, bombAmountGoal, "asd");
-        let height = Math.floor(Math.random() * 4)
-        let width = Math.floor(Math.random() * 4)
+        let height = Math.floor(Math.random() * rows)
+        let width = Math.floor(Math.random() * columns)
         const id = height+"-"+width;
-        isBomb = parseInt(document.getElementById(id).getAttribute('value'))
-        if(isBomb == 0 && clicked.id != id)
+        isBomb = document.getElementById(id).getAttribute('value')
+        if(isBomb == "n" && clicked.id != id)
         {
-            document.getElementById(id).setAttribute('value', 1)
+            document.getElementById(id).setAttribute('value', "B")
             bombAmount++
         }
     }
@@ -87,26 +84,57 @@ function boardGenerator(clicked)
 function revealer(currentElement)
 {
     let elementID = currentElement.id
-    let idi = parseInt(elementID.charAt(0))
-    let idj = parseInt(elementID.charAt(2))
+    let idi = parseInt(elementID.split("-")[0])
+    let idj = parseInt(elementID.split("-")[1])
+    console.log(idi, idj)
     let element = document.getElementById(elementID)
     element.innerHTML = element.getAttribute('value')
-    for(i = idi - 1;i < idi+2; i++)
+    let bombs = 0
+    for(let i = idi - 1;i < idi+2; i++)
     {
-        let bombs = 0
-        for(j = idj-1; j < idj+2; j++)
+        for(let j = idj-1; j < idj+2; j++)
         {
             let checkedElement = document.getElementById(i+"-"+j)
-            console.log("ass")
-            if(checkedElement.getAttribute('value') == 0)
+            if(checkedElement)
             {
-                checkedElement.innerHTML = checkedElement.getAttribute('value')
-            }
-            if(checkedElement.getAttribute('value') == 1)
-            {
-                bombs += 1
-                //checkedElement.setAttribute('value', "around")
-                //checkedElement.innerHTML = checkedElement.getAttribute('value') redo this checkedElement is wrong here am tired see ya baiiiii
+                if(checkedElement.getAttribute('value') == "n")
+                {
+                    checkedElement.innerHTML = checkedElement.getAttribute('value')
+                }
+                else if(checkedElement.getAttribute('value') == "B" && element.getAttribute('value') != "B")
+                {
+
+                    bombs += 1
+                    element.setAttribute('value', bombs)
+                    element.innerHTML = element.getAttribute('value')
+                }
+                bombs = 0
+                let moreidi = i
+                let moreidj = j
+                element = document.getElementById(i+"-"+j)
+                for(let k = moreidi - 1;k < moreidi+2; k++)
+                {
+                    for(let l = moreidj-1; l < moreidj+1; l++)
+                    {
+                        let checkedElement = document.getElementById(k+"-"+l)
+                        if(checkedElement)
+                        {
+                            if(checkedElement.getAttribute('value') == "n")
+                            {
+                                checkedElement.innerHTML = checkedElement.getAttribute('value')
+                            }
+                            else if(checkedElement.getAttribute('value') == "B" && element.getAttribute('value') != "B")
+                            {
+
+                                bombs += 1
+                                element.setAttribute('value', bombs)
+                                element.innerHTML = element.getAttribute('value')//help napraw zobacz co sie psuje i to napraw bo wtf nie wiem
+                            }
+    
+                        }
+                    }
+                }
+                bombs = 0
             }
         }
     }
