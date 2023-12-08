@@ -101,7 +101,7 @@ function revealer(currentElement)
                 {
                     checkedElement.innerHTML = checkedElement.getAttribute('value')
                 }
-                else if(checkedElement.getAttribute('value') == "B" && element.getAttribute('value') != "B")
+                else if(checkedElement.getAttribute('value') == "B" && element.getAttribute('value') != "B" || checkedElement == element && element.getAttribute('value') != "B")
                 {
 
                     bombs += 1
@@ -114,7 +114,7 @@ function revealer(currentElement)
                 element = document.getElementById(i+"-"+j)
                 for(let k = moreidi - 1;k < moreidi+2; k++)
                 {
-                    for(let l = moreidj-1; l < moreidj+1; l++)
+                    for(let l = moreidj-1; l < moreidj+2; l++)
                     {
                         let checkedElement = document.getElementById(k+"-"+l)
                         if(checkedElement)
@@ -123,7 +123,7 @@ function revealer(currentElement)
                             {
                                 checkedElement.innerHTML = checkedElement.getAttribute('value')
                             }
-                            else if(checkedElement.getAttribute('value') == "B" && element.getAttribute('value') != "B")
+                            else if(checkedElement.getAttribute('value') == "B" && element.getAttribute('value') != "B" )
                             {
 
                                 bombs += 1
